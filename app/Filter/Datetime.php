@@ -17,7 +17,7 @@ class Datetime extends AbstractFilter
         switch ($query) {
             case 'YEAR(NOW())':
                 $field = DB::raw('YEAR(' . $field . ')');
-                $query = DB::raw('YEAR(' . $functions[config('database.default')] . ')');
+                $query = DB::raw('YEAR(NOW())');
         }
 
         $builder->where($field, $operator, $query);

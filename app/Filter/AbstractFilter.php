@@ -10,39 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 abstract class AbstractFilter
 {
     /**
-     * The filtered field.
-     *
-     * @var string
-     */
-    public $field;
-
-    /**
-     * The filter description.
-     *
-     * @var string
-     */
-    public $description;
-
-    /**
-     * The filter options.
-     *
-     * @var array
-     */
-    public $options = [];
-
-    /**
-     * Whether the filter has added a join.
-     *
-     * @var bool
-     */
-    protected $joined = 0;
-
-    /**
-     * The number of times this filter was executed in the current request.
-     */
-    protected $applied = 0;
-
-    /**
      * Get the resource name.
      */
     public function filterName(): string
@@ -75,30 +42,6 @@ abstract class AbstractFilter
     }
 
     /**
-     * Join the filter.
-     */
-    public function join(Builder $builder, array $parameters)
-    {
-        if (! method_exists($this, 'applyJoin')) {
-            return false;
-        }
-
-        foreach ($parameters as $index => $parameter) {
-            if (! $this->shouldApply($parameter)) {
-                continue;
-            }
-
-            $this->uniqueAliases[] = str_random(5);
-
-            if ($this->multipleJoin === true || $this->joined === 0) {
-                $this->applyJoin($builder, $parameter);
-            }
-
-            $this->joined += 1;
-        }
-    }
-
-    /**
      * Apply this filter to the query builder.
      */
     public function apply(Builder $builder, array $parameters): void
@@ -123,8 +66,6 @@ abstract class AbstractFilter
             $field = Arr::get($parameter, 'field');
 
             $this->applyWhere($builder, $field, $operator, $query);
-
-            $this->applied += 1;
         }
     }
 
@@ -179,14 +120,6 @@ abstract class AbstractFilter
     }
 
     /**
-     * Get the filter options.
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    /**
      * Get the operators
      */
     public function getOperators()
@@ -200,21 +133,5 @@ abstract class AbstractFilter
         }
 
         return Filterable::getFilterOperators();
-    }
-
-    /**
-     * Check if filter is multiple.
-     */
-    public function isMultiple(): bool
-    {
-        return $this->multiple === true;
-    }
-
-    /**
-     * Get the multiple filter fields.
-     */
-    public function getMultiple()
-    {
-        return [];
     }
 }
