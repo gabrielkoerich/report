@@ -14,6 +14,21 @@ class Website extends Model
      * @var array
      */
     protected $fillable = [
-        'domain',
+        'domain', 'user_id',
     ];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['user'];
+
+    /**
+     * The user relation
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
