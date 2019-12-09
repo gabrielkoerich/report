@@ -51,7 +51,7 @@ class ReportTest extends TestCase
     public function testShowReport()
     {
         $domains = [
-            ['domain' => 'testing.com'],
+            ['domain' => 'testing.com', 'user_id' => 1],
             ['domain' => 'testing.net'],
             ['domain' => 'testing.gov'],
             ['domain' => 'testing.dev'],
@@ -75,6 +75,8 @@ class ReportTest extends TestCase
 
         // Only .net and .com domains
         $this->assertEquals($report->data[0]->domain, 'testing.com');
+        $this->assertEquals($report->data[0]->user->email, 'testing@test.com');
         $this->assertEquals($report->data[1]->domain, 'testing.net');
+        $this->assertNull($report->data[1]->user);
     }
 }
