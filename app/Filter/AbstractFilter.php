@@ -154,12 +154,15 @@ abstract class AbstractFilter
                 case 'has':
                 case '!has':
                     $query = str_replace(' ', '%', '%' . $query . '%');
+
                 break;
                 case 'starts':
                     $query = str_replace(' ', '%', $query . '%');
+
                 break;
                 case 'ends':
                     $query = str_replace(' ', '%', '%' . $query);
+
                 break;
             }
 

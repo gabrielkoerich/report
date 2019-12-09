@@ -2,8 +2,6 @@
 
 namespace App\Filter;
 
-use DB;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 
 class Text extends AbstractFilter
