@@ -13,7 +13,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('model');
             $table->json('context');
             $table->timestamps();
