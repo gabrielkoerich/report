@@ -35,4 +35,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The user websites
+     */
+    public function websites()
+    {
+        return $this->hasMany(Website::class);
+    }
+
+    /**
+     * Password mutator.
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }
