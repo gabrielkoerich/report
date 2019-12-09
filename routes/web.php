@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/report', 'ReportController@index');
+Route::get('/report/{report}', 'ReportController@show');
+Route::post('/report', 'ReportController@create');
+Route::put('/report', 'ReportController@update');
+Route::delete('/report', 'ReportController@delete');
